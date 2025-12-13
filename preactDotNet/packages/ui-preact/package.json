@@ -4,7 +4,6 @@
   "description": "Standalone UI library in Preact",
   "private": true,
   "type": "module",
-  "main": "index.js",
   "scripts": {
     "build": "vite build"
   },
