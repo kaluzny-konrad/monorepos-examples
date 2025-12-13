@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "scripts": {
+    "build:ui": "pnpm --filter @preactDotNet/ui-preact build"
+  },
+  "dependencies": {
+    "@preactDotNet/ui-preact": "^1.0.0"
+  }
+}

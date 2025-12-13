@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ui-preact",
+  "name": "@preactDotNet/ui-preact",
   "version": "1.0.0",
   "description": "Standalone UI library in Preact",
   "private": true,

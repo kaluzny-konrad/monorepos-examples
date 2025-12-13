@@ -7,6 +7,6 @@
     <RootNamespace>web_dotnet</RootNamespace>
   </PropertyGroup>
 
-  <Import Project="Preact.targets" />
+  <Import Project="UiPreact.targets" />
 
 </Project>

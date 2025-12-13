@@ -1,62 +1,27 @@
-using System.Diagnostics;
+using web_dotnet.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Register services
+builder.Services.AddSingleton<PreactRenderer>();
+builder.Services.AddSingleton<ViewRenderer>();
+
 var app = builder.Build();
 
 app.UseStaticFiles();
 
-app.MapGet("/", () =>
+app.MapGet("/", (PreactRenderer preactRenderer, ViewRenderer viewRenderer) =>
 {
-  var greetingHtml = RenderPreact("Greeting", new { name = "Alice" });
-  var counterHtml = RenderPreact("CounterButton", new { });
+    var greetingHtml = preactRenderer.Render("Greeting", new { name = "Alice" });
+    var counterHtml = preactRenderer.Render("CounterButton", new { });
 
-  return Results.Text($$"""
-        <html>
-          <head>
-            <script type="importmap">
-            {
-              "imports": {
-                "preact": "https://esm.sh/preact@10.28.0"
-              }
-            }
-            </script>
-          </head>
-          <body>
-            <h1>SSR + CSR Demo</h1>
+    var html = viewRenderer.Render("Index", new Dictionary<string, string>
+    {
+        { "GREETING_HTML", greetingHtml },
+        { "COUNTER_HTML", counterHtml }
+    });
 
-            <!-- SSR Component -->
-            <div id="greeting">
-              {{greetingHtml}}
-            </div>
-
-            <!-- CSR Component -->
-            {{counterHtml}}
-
-            <script type="module" src="/preact/client.js"></script>
-          </body>
-        </html>
-    """, "text/html");
+    return Results.Text(html, "text/html");
 });
 
-
 app.Run();
-
-string RenderPreact(string component, object props)
-{
-  var jsonProps = System.Text.Json.JsonSerializer.Serialize(props);
-  var psi = new ProcessStartInfo
-  {
-    FileName = "node",
-    Arguments = $"ssr.js {component}",
-    RedirectStandardOutput = true,
-    RedirectStandardInput = true,
-    UseShellExecute = false
-  };
-
-  psi.WorkingDirectory = Directory.GetCurrentDirectory();
-
-  using var process = Process.Start(psi)!;
-  process.StandardInput.WriteLine(jsonProps);
-  process.StandardInput.Close();
-  return process.StandardOutput.ReadToEnd();
-}

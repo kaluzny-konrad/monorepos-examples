@@ -1,0 +1,53 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <NodeWorkingDir>$(MSBuildProjectDirectory)</NodeWorkingDir>
+        <MonorepoRoot>$(NodeWorkingDir)\..\..</MonorepoRoot>
+        <UiDist>$(MonorepoRoot)\packages\ui-preact\dist</UiDist>
+        <UiWwwRoot>$(NodeWorkingDir)\wwwroot\preact</UiWwwRoot>
+    </PropertyGroup>
+
+    <!-- 1️⃣ pnpm install -->
+    <Target Name="NpmInstall"
+        BeforeTargets="Build"
+        Condition="!Exists('$(MonorepoRoot)\node_modules')">
+
+        <Message Text="Installing pnpm dependencies..." Importance="high" />
+
+        <Exec
+            WorkingDirectory="$(MonorepoRoot)"
+            Command="pnpm install" />
+    </Target>
+
+    <!-- 2️⃣ build UI package -->
+    <Target Name="BuildUiPreact"
+        BeforeTargets="Build">
+
+        <Message Text="Building UI Preact package..." Importance="high" />
+
+        <Exec
+            WorkingDirectory="$(MonorepoRoot)"
+            Command="pnpm --filter @preactDotNet/ui-preact build" />
+    </Target>
+
+    <!-- 3️⃣ copy client assets -->
+    <Target Name="CopyUiPreactAssets"
+        AfterTargets="BuildUiPreact">
+
+        <Message Text="Copying UI assets to wwwroot..." Importance="high" />
+
+        <RemoveDir Directories="$(UiWwwRoot)" />
+        <MakeDir Directories="$(UiWwwRoot)" />
+
+        <ItemGroup>
+            <UiAssets Include="$(UiDist)\*.js"
+                Exclude="$(UiDist)\server.cjs" />
+        </ItemGroup>
+
+        <Copy
+            SourceFiles="@(UiAssets)"
+            DestinationFiles="@(UiAssets->'$(UiWwwRoot)\%(Filename)%(Extension)')" />
+    </Target>
+
+</Project>
+  

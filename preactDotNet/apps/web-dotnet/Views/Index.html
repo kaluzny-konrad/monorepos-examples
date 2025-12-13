@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Preact + .NET Demo</title>
+    <script type="importmap">
+    {
+      "imports": {
+        "preact": "https://esm.sh/preact@10.28.0",
+        "preact/hooks": "https://esm.sh/preact@10.28.0/hooks"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <h1>SSR + CSR Demo</h1>
+
+    <!-- SSR Component -->
+    <div id="greeting">
+      {{GREETING_HTML}}
+    </div>
+
+    <!-- CSR Component -->
+    {{COUNTER_HTML}}
+
+    <script type="module" src="/preact/client.js"></script>
+  </body>
+</html>
