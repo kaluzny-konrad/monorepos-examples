@@ -3,6 +3,8 @@ using System.Diagnostics;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+app.UseStaticFiles();
+
 app.MapGet("/", () =>
 {
     var html = RenderPreact("Button", new { text = "Hello from Preact" });
