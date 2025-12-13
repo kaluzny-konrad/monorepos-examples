@@ -7,23 +7,21 @@ app.UseStaticFiles();
 
 app.MapGet("/", () =>
 {
-    var html = RenderPreact("Button", new { text = "Hello from Preact" });
+  var greetingHtml = RenderPreact("Greeting", new { name = "Alice" });
+  var counterHtml = RenderPreact("CounterButton", new { });
 
-    return Results.Text($$"""
+  return Results.Text($"""
         <html>
-          <head>
-            <script type="importmap">
-            {
-              "imports": {
-                "preact": "https://esm.sh/preact@10.28.0"
-              }
-            }
-            </script>
-          </head>
           <body>
-            <div data-preact data-component="Button" data-props='{"text": "Hello from Preact"}'>
-              {{html}}
+            <h1>SSR + CSR Demo</h1>
+
+            <!-- SSR Component -->
+            <div id="greeting">
+              {greetingHtml}
             </div>
+
+            <!-- CSR Component -->
+            {counterHtml}
 
             <script type="module" src="/preact/client.js"></script>
           </body>
@@ -31,24 +29,25 @@ app.MapGet("/", () =>
     """, "text/html");
 });
 
+
 app.Run();
 
 string RenderPreact(string component, object props)
 {
-    var jsonProps = System.Text.Json.JsonSerializer.Serialize(props);
-    var psi = new ProcessStartInfo
-    {
-        FileName = "node",
-        Arguments = $"ssr.js {component}",
-        RedirectStandardOutput = true,
-        RedirectStandardInput = true,
-        UseShellExecute = false
-    };
+  var jsonProps = System.Text.Json.JsonSerializer.Serialize(props);
+  var psi = new ProcessStartInfo
+  {
+    FileName = "node",
+    Arguments = $"ssr.js {component}",
+    RedirectStandardOutput = true,
+    RedirectStandardInput = true,
+    UseShellExecute = false
+  };
 
-    psi.WorkingDirectory = Directory.GetCurrentDirectory();
+  psi.WorkingDirectory = Directory.GetCurrentDirectory();
 
-    using var process = Process.Start(psi)!;
-    process.StandardInput.WriteLine(jsonProps);
-    process.StandardInput.Close();
-    return process.StandardOutput.ReadToEnd();
+  using var process = Process.Start(psi)!;
+  process.StandardInput.WriteLine(jsonProps);
+  process.StandardInput.Close();
+  return process.StandardOutput.ReadToEnd();
 }

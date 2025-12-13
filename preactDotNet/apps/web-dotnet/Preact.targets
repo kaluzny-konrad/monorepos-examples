@@ -1,0 +1,54 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!-- ===== CONFIG ===== -->
+
+    <PropertyGroup>
+        <BuildPreact Condition="'$(ASPNETCORE_ENVIRONMENT)' != 'Development'">true</BuildPreact>
+
+        <!-- Monorepo root -->
+        <RepoRoot>$(MSBuildProjectDirectory)\..\..</RepoRoot>
+
+        <!-- Preact package -->
+        <PreactPackage>$(RepoRoot)\packages\ui-preact</PreactPackage>
+
+        <!-- Output -->
+        <PreactDist>$(PreactPackage)\dist</PreactDist>
+
+        <!-- Destination -->
+        <PreactWwwRoot>$(MSBuildProjectDirectory)\wwwroot\preact</PreactWwwRoot>
+    </PropertyGroup>
+
+    <!-- ===== BUILD PREACT ===== -->
+
+    <Target Name="BuildPreact"
+        BeforeTargets="Build"
+        Condition="Exists('$(PreactPackage)\package.json') and '$(BuildPreact)' == 'true'">
+
+        <Message Text="Building Preact UI package..." Importance="high" />
+
+        <Exec
+            WorkingDirectory="$(RepoRoot)"
+            Command="pnpm --filter @repo/ui-preact build" />
+    </Target>
+
+    <!-- ===== COPY BUNDLES ===== -->
+
+    <Target Name="CopyPreactAssets"
+        AfterTargets="BuildPreact">
+
+        <Message Text="Copying Preact assets to wwwroot..." Importance="high" />
+
+        <RemoveDir Directories="$(PreactWwwRoot)" />
+        <MakeDir Directories="$(PreactWwwRoot)" />
+
+        <ItemGroup>
+            <PreactAssets Include="$(PreactDist)\**\*" />
+        </ItemGroup>
+
+        <Copy
+            SourceFiles="@(PreactAssets)"
+            DestinationFolder="$(PreactWwwRoot)\%(RecursiveDir)"
+            SkipUnchangedFiles="true" />
+    </Target>
+
+</Project>
