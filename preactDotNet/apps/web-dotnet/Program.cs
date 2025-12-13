@@ -11,6 +11,15 @@ app.MapGet("/", () =>
 
     return Results.Text($$"""
         <html>
+          <head>
+            <script type="importmap">
+            {
+              "imports": {
+                "preact": "https://esm.sh/preact@10.28.0"
+              }
+            }
+            </script>
+          </head>
           <body>
             <div data-preact data-component="Button" data-props='{"text": "Hello from Preact"}'>
               {{html}}
