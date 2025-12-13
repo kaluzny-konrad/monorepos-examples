@@ -10,18 +10,27 @@ app.MapGet("/", () =>
   var greetingHtml = RenderPreact("Greeting", new { name = "Alice" });
   var counterHtml = RenderPreact("CounterButton", new { });
 
-  return Results.Text($"""
+  return Results.Text($$"""
         <html>
+          <head>
+            <script type="importmap">
+            {
+              "imports": {
+                "preact": "https://esm.sh/preact@10.28.0"
+              }
+            }
+            </script>
+          </head>
           <body>
             <h1>SSR + CSR Demo</h1>
 
             <!-- SSR Component -->
             <div id="greeting">
-              {greetingHtml}
+              {{greetingHtml}}
             </div>
 
             <!-- CSR Component -->
-            {counterHtml}
+            {{counterHtml}}
 
             <script type="module" src="/preact/client.js"></script>
           </body>
