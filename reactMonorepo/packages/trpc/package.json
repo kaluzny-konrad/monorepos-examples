@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "exports": {
-    "./router": "./src/server/server.ts"
+    "./router": "./src/server/server.ts",
+    "./client": "./src/client/client.ts",
+    "./TrpcProvider": "./src/client/providers/TrpcProvider.tsx"
   },
   "peerDependencies": {
     "zod": "^4.2.0",
-    "@trpc/server": "^10.0.0"
+    "@trpc/server": "^11.8.0"
   }
 }
