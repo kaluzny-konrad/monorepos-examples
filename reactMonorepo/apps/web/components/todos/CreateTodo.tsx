@@ -28,7 +28,7 @@ export default function CreateTodo() {
       name,
       description,
       completed: false,
-      dueDate: new Date(dueDate),
+      dueDate: dueDate, // Send as string - backend will coerce to Date
       priority: priority || undefined,
     });
   };

@@ -29,14 +29,12 @@ const appRouter = t.router({
       priority: z.enum(['low', 'medium', 'high']).optional(),
     }))).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
     createTodo: publicProcedure.input(z.object({
-      id: z.string(),
       name: z.string(),
       description: z.string(),
       completed: z.boolean(),
-      createdAt: z.date(),
-      dueDate: z.date(),
+      dueDate: z.coerce.date(), // Accepts both Date objects and date strings
       priority: z.enum(['low', 'medium', 'high']).optional(),
-    }).omit({ id: true, createdAt: true })).output(z.object({
+    })).output(z.object({
       id: z.string(),
       name: z.string(),
       description: z.string(),
@@ -48,14 +46,12 @@ const appRouter = t.router({
     updateTodo: publicProcedure.input(z.object({
       id: z.string(),
       data: z.object({
-        id: z.string(),
         name: z.string(),
         description: z.string(),
         completed: z.boolean(),
-        createdAt: z.date(),
-        dueDate: z.date(),
+        dueDate: z.coerce.date(), // Accepts both Date objects and date strings
         priority: z.enum(['low', 'medium', 'high']).optional(),
-      }).omit({ id: true, createdAt: true }).partial(),
+      }).partial(),
     })).output(z.object({
       id: z.string(),
       name: z.string(),

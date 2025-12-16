@@ -10,7 +10,13 @@ export const todoSchema = z.object({
   priority: z.enum(['low', 'medium', 'high']).optional(),
 });
 
-export const createTodoSchema = todoSchema.omit({ id: true, createdAt: true });
+export const createTodoSchema = z.object({
+  name: z.string(),
+  description: z.string(),
+  completed: z.boolean(),
+  dueDate: z.coerce.date(), // Accepts both Date objects and date strings
+  priority: z.enum(['low', 'medium', 'high']).optional(),
+});
 
 export type CreateTodoInput = z.infer<typeof createTodoSchema>;
 export type Todo = z.infer<typeof todoSchema>;
