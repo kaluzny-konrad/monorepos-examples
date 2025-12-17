@@ -7,6 +7,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.23.7",
+    "@expo/metro-runtime": "~4.0.0",
+    "expo-modules-core": "~2.0.6",
     "minimatch": "^10.1.1",
     "prettier": "^3.7.4",
     "turbo": "^2.6.3"
