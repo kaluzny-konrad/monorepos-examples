@@ -10,8 +10,6 @@ The following scripts are available in the root `package.json`:
 | :--- | :--- | :--- |
 | `build` | `turbo build` | Builds all apps and packages in the monorepo. |
 | `dev` | `turbo dev` | Runs all apps in development mode simultaneously. |
-| `dev:web` | `turbo dev --filter=@repo/web` | Runs only the Next.js web application in development mode. |
-| `dev:native` | `turbo dev --filter=@repo/native` | Runs only the Expo mobile application in development mode. |
 | `lint` | `turbo lint` | Lints all files in the monorepo using ESLint. |
 | `format` | `turbo format` | Formats all files in the monorepo using Prettier. |
 | `type-check` | `turbo type-check` | Runs TypeScript type checking across all packages. |
@@ -32,19 +30,23 @@ Each app and package is 100% [TypeScript](https://www.typescriptlang.org/). Shar
 
 To build all apps and packages:
 ```sh
-npm run build
+turbo build
 ```
 
 ### Develop
 
 To start all apps in development mode:
 ```sh
-npm run dev
+turbo dev
 ```
 
-To develop a specific app (e.g., web):
+To start the web application in development mode:
 ```sh
-npm run dev:web
+turbo dev --filter=@repo/web
+```
+To start the mobile application in development mode:
+```sh
+turbo dev --filter=@repo/native
 ```
 
 ### Update

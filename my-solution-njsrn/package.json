@@ -7,9 +7,7 @@
     "lint": "turbo lint",
     "format": "turbo format",
     "type-check": "turbo type-check",
-    "clean": "turbo clean && rimraf node_modules",
-    "dev:web": "turbo dev --filter=@repo/web",
-    "dev:native": "turbo dev --filter=@repo/native"
+    "clean": "turbo clean && rimraf node_modules"
   },
   "devDependencies": {
     "prettier": "^3.7.4",
