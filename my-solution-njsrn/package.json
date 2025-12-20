@@ -2,16 +2,26 @@
   "name": "my-solution-njsrn",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "type-check": "turbo type-check",
+    "clean": "turbo clean && rimraf node_modules",
+    "dev:web": "turbo dev --filter=@repo/web",
+    "dev:native": "turbo dev --filter=@repo/native"
   },
   "devDependencies": {
     "prettier": "^3.7.4",
-    "turbo": "^2.6.3",
-    "typescript": "5.9.2"
+    "rimraf": "^6.1.2",
+    "turbo": "^2.7.0",
+    "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "rimraf": "^6.1.2",
+      "glob": "^13.0.0"
+    }
   },
   "packageManager": "pnpm@10.26.1",
   "engines": {

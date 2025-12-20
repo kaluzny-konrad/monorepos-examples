@@ -1,10 +1,4 @@
-// https://docs.expo.dev/guides/using-eslint/
-const { defineConfig } = require('eslint/config');
-const expoConfig = require('eslint-config-expo/flat');
+import { nativeConfig } from "@repo/eslint-config/native";
 
-module.exports = defineConfig([
-  expoConfig,
-  {
-    ignores: ['dist/*'],
-  },
-]);
+/** @type {import("eslint").Linter.Config[]} */
+export default nativeConfig;
