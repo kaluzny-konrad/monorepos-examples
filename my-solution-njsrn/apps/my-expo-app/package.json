@@ -1,0 +1,41 @@
+{
+  "name": "@repo/my-expo-app",
+  "version": "1.0.0",
+  "scripts": {
+    "ios": "npx expo start --ios",
+    "web": "npx expo start --web",
+    "start": "npx expo start",
+    "prebuild": "npx expo prebuild",
+    "lint": "eslint \"**/*.{js,jsx,ts,tsx}\" && prettier -c \"**/*.{js,jsx,ts,tsx,json}\"",
+    "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
+    "type-check": "tsc --noEmit",
+    "dev": "npx expo start"
+  },
+  "dependencies": {
+    "expo": "~54.0.30",
+    "expo-status-bar": "~3.0.9",
+    "nativewind": "^4.2.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-css-interop": "^0.2.1",
+    "react-native-reanimated": "~4.1.1",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-web": "~0.21.2",
+    "react-native-worklets": "0.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@expo/metro-runtime": "^6.1.2",
+    "@repo/config-tailwind": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "~19.1.10",
+    "prettier": "^3.7.4",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "tailwindcss": "3.4.17",
+    "typescript": "5.9.3"
+  },
+  "main": "index.js",
+  "private": true
+}

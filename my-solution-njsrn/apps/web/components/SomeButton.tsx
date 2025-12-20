@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 
-export default function SomeButton() {
+export default function SomeButton(): ReactElement {
   const [count, setCount] = useState(0);
   const handlePress = () => {
     setCount(count + 1);

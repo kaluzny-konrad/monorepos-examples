@@ -1,14 +1,12 @@
-import sharedConfig from "@repo/config-tailwind";
-import nativewind from "nativewind/preset";
+const sharedConfig = require("@repo/config-tailwind");
 
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   // NOTE: Update this to include the paths to all of your component files.
   content: ["./app/**/*.{js,jsx,ts,tsx}"],
-  presets: [sharedConfig, nativewind],
+  presets: [sharedConfig, require("nativewind/preset")],
   theme: {
     extend: {},
   },
   plugins: [],
 };
-
