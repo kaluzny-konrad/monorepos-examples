@@ -1,7 +1,5 @@
-import { ReactElement } from 'react';
+import { ReactElement } from "react";
 
 export default function HomePage(): ReactElement {
-  return <div>
-    test
-  </div>;
+  return <div>test</div>;
 }

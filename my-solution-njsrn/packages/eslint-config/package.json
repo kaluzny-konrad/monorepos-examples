@@ -22,5 +22,8 @@
     "globals": "^16.5.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.50.0"
+  },
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,json,md}\""
   }
 }
