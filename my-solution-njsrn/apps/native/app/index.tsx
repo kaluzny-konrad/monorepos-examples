@@ -1,4 +1,5 @@
 import { Text, View } from "react-native";
+import SomeButton from "../components/SomeButton";
 
 export default function Index() {
   return (
@@ -9,7 +10,9 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Text>Native with Tailwind CSS</Text>
+      <Text>This is a paragraph</Text>
+      <SomeButton />
     </View>
   );
 }
