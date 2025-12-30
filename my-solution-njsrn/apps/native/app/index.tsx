@@ -1,6 +1,5 @@
 import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useMemo } from "react";
 import { router } from "expo-router";
 import { calculateStats, type Lesson, type Word, type DailyActivity } from "@repo/learning-core";
 
@@ -68,7 +67,7 @@ export default function Index() {
   }));
 
   // Generate daily activities for the last 7 days
-  const mockActivities: DailyActivity[] = useMemo(() => {
+  const mockActivities = (): DailyActivity[] => {
     const activities: DailyActivity[] = [];
     const today = new Date();
     for (let i = 0; i < 7; i++) {
@@ -83,13 +82,10 @@ export default function Index() {
       });
     }
     return activities;
-  }, []);
+  };
 
   // Calculate stats using shared logic
-  const stats = useMemo(
-    () => calculateStats(mockLessons, mockWords, mockActivities),
-    [mockLessons, mockWords, mockActivities]
-  );
+  const stats = calculateStats(mockLessons, mockWords, mockActivities());
 
   const handleActionPress = (action: string) => {
     if (action === "vocabulary") {

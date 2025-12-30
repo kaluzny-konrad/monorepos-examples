@@ -10,7 +10,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { trpc } from "@repo/trpc/client";
-import type { Word } from "@repo/learning-core";
 
 export default function VocabularyScreen() {
   const [newWord, setNewWord] = useState("");
@@ -19,7 +18,8 @@ export default function VocabularyScreen() {
   const utils = trpc.useUtils();
 
   const { data: words, isLoading, error } = trpc.vocabulary.getAll.useQuery();
-  const { data: wordsNeedingPractice } = trpc.vocabulary.getNeedingPractice.useQuery({});
+  const { data: wordsNeedingPractice } =
+    trpc.vocabulary.getNeedingPractice.useQuery({});
 
   const createWordMutation = trpc.vocabulary.create.useMutation({
     onSuccess: () => {
@@ -80,13 +80,19 @@ export default function VocabularyScreen() {
           <TouchableOpacity onPress={() => router.back()} className="mb-4">
             <Text className="text-blue-600">← Back</Text>
           </TouchableOpacity>
-          <Text className="text-3xl font-bold text-gray-900 mb-2">📚 Vocabulary</Text>
-          <Text className="text-gray-600">Manage your English vocabulary words</Text>
+          <Text className="text-3xl font-bold text-gray-900 mb-2">
+            📚 Vocabulary
+          </Text>
+          <Text className="text-gray-600">
+            Manage your English vocabulary words
+          </Text>
         </View>
 
         {/* Add New Word Form */}
         <View className="bg-white mx-6 rounded-xl p-5 shadow-sm mb-6">
-          <Text className="text-xl font-semibold text-gray-900 mb-4">Add New Word</Text>
+          <Text className="text-xl font-semibold text-gray-900 mb-4">
+            Add New Word
+          </Text>
           <TextInput
             placeholder="Word"
             value={newWord}
@@ -120,7 +126,7 @@ export default function VocabularyScreen() {
               🔄 Words Needing Practice ({wordsNeedingPractice.length})
             </Text>
             <View className="flex-row flex-wrap gap-2">
-              {wordsNeedingPractice.slice(0, 10).map((word: Word) => (
+              {wordsNeedingPractice.slice(0, 10).map((word) => (
                 <TouchableOpacity
                   key={word.id}
                   onPress={() => recordPracticeMutation.mutate({ id: word.id })}
@@ -143,35 +149,45 @@ export default function VocabularyScreen() {
           </View>
 
           {words && words.length > 0 ? (
-            words.map((word: Word, index: number) => (
+            words.map((word, index: number) => (
               <View
                 key={word.id}
                 className={`px-5 py-4 ${index < words.length - 1 ? "border-b border-gray-100" : ""}`}
               >
                 <View className="flex-row items-center mb-1">
-                  <Text className="font-semibold text-gray-900 mr-2">{word.word}</Text>
+                  <Text className="font-semibold text-gray-900 mr-2">
+                    {word.word}
+                  </Text>
                   {word.learned && (
                     <View className="px-2 py-0.5 bg-green-100 rounded-full">
                       <Text className="text-green-700 text-xs">Learned</Text>
                     </View>
                   )}
                 </View>
-                <Text className="text-gray-600 text-sm mb-1">{word.definition}</Text>
+                <Text className="text-gray-600 text-sm mb-1">
+                  {word.definition}
+                </Text>
                 <Text className="text-gray-400 text-xs mb-3">
                   Practiced {word.timesPracticed} times
                 </Text>
                 <View className="flex-row gap-2">
                   {!word.learned && (
                     <TouchableOpacity
-                      onPress={() => markLearnedMutation.mutate({ id: word.id })}
+                      onPress={() =>
+                        markLearnedMutation.mutate({ id: word.id })
+                      }
                       className="px-3 py-1 bg-green-100 rounded-lg"
                       activeOpacity={0.7}
                     >
-                      <Text className="text-green-700 text-sm">Mark Learned</Text>
+                      <Text className="text-green-700 text-sm">
+                        Mark Learned
+                      </Text>
                     </TouchableOpacity>
                   )}
                   <TouchableOpacity
-                    onPress={() => recordPracticeMutation.mutate({ id: word.id })}
+                    onPress={() =>
+                      recordPracticeMutation.mutate({ id: word.id })
+                    }
                     className="px-3 py-1 bg-blue-100 rounded-lg"
                     activeOpacity={0.7}
                   >
@@ -189,7 +205,9 @@ export default function VocabularyScreen() {
             ))
           ) : (
             <View className="px-5 py-12 items-center">
-              <Text className="text-gray-500">No words yet. Add your first word above!</Text>
+              <Text className="text-gray-500">
+                No words yet. Add your first word above!
+              </Text>
             </View>
           )}
         </View>
@@ -200,4 +218,3 @@ export default function VocabularyScreen() {
     </SafeAreaView>
   );
 }
-

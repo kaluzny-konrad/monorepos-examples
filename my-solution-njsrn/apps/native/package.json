@@ -11,7 +11,9 @@
     "lint": "npx expo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "type-check": "tsc --noEmit",
-    "dev": "npx expo start"
+    "dev": "npx expo start",
+    "dev:android": "emulator -avd Medium_Phone_API_36.0",
+    "dev:ios": "xcrun simctl boot 'iPhone 16' || open -a Simulator && expo start --ios"
   },
   "dependencies": {
     "@repo/learning-core": "workspace:*",
