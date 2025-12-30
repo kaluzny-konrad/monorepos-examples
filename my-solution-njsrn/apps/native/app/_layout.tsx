@@ -1,11 +1,11 @@
 import { Stack } from "expo-router";
 import "../global.css";
-import TrpcClientProvider from "../components/providers/TrpcClientProvider";
+import TrpcProvider from "@repo/trpc/TrpcProvider";
 
 export default function RootLayout() {
   return (
-    <TrpcClientProvider>
+    <TrpcProvider url={process.env.EXPO_PUBLIC_TRPC_URL || "http://localhost:3000/trpc"}>
       <Stack />
-    </TrpcClientProvider>
+    </TrpcProvider>
   );
 }

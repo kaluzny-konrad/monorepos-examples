@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <TrpcProvider url={process.env.NEXT_PUBLIC_TRPC_URL!}>{children}</TrpcProvider>
+        <TrpcProvider url={process.env.NEXT_PUBLIC_TRPC_URL || "http://localhost:3000/trpc"}>{children}</TrpcProvider>
       </body>
     </html>
   );

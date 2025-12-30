@@ -1,4 +1,15 @@
+/* eslint-env node */
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+const nextConfig = {
+    rewrites: () => {
+      return [
+        {
+          source: "/trpc/:path*",
+          // eslint-disable-next-line no-undef
+          destination: `${process.env.TRPC_URL}/:path*`,
+        },
+      ];
+    },
+  };
+  
+  export default nextConfig;
