@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import "../global.css";
-import TrpcProvider from "@repo/trpc/TrpcProvider";
+import TrpcProvider from "@repo/trpc/TrpcProvider.native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "react-native";
 

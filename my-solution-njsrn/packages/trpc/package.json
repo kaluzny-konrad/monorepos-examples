@@ -5,16 +5,17 @@
   "exports": {
     "./router": "./src/server/server.ts",
     "./client": "./src/client/client.ts",
-    "./TrpcProvider": "./src/client/providers/TrpcProvider.tsx"
+    "./TrpcProvider.web": "./src/client/providers/TrpcProvider.web.tsx",
+    "./TrpcProvider.native": "./src/client/providers/TrpcProvider.native.tsx"
   },
   "peerDependencies": {
     "@trpc/server": "^11.8.0",
-    "zod": "^4.2.0"
+    "zod": "^4.2.1",
+    "react": ">=18.0.0"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.90.16",
-    "@trpc/react-query": "^11.8.1",
-    "react": "^19.2.3"
+    "@tanstack/react-query": "^5.80.7",
+    "@trpc/react-query": "^11.8.0"
   },
   "devDependencies": {
     "@types/react": "^19.2.7"

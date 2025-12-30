@@ -18,7 +18,9 @@
   "pnpm": {
     "overrides": {
       "rimraf": "^6.1.2",
-      "glob": "^13.0.0"
+      "glob": "^13.0.0",
+      "react": "19.1.0",
+      "react-dom": "19.1.0"
     },
     "onlyBuiltDependencies": [
       "@nestjs/core",
