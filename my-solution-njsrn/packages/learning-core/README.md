@@ -16,7 +16,11 @@ This package is part of the monorepo and is automatically linked via workspace p
 ## Usage
 
 ```typescript
-import { calculateStats, calculateStreak, calculateLessonProgress } from "@repo/learning-core";
+import {
+  calculateStats,
+  calculateStreak,
+  calculateLessonProgress,
+} from "@repo/learning-core";
 import type { Lesson, Word, DailyActivity } from "@repo/learning-core";
 
 const lessons: Lesson[] = [
@@ -29,7 +33,12 @@ const words: Word[] = [
 ];
 
 const activities: DailyActivity[] = [
-  { date: "2024-01-01", lessonsCompleted: 1, wordsLearned: 5, practiceTime: 30 },
+  {
+    date: "2024-01-01",
+    lessonsCompleted: 1,
+    wordsLearned: 5,
+    practiceTime: 30,
+  },
 ];
 
 const stats = calculateStats(lessons, words, activities);
@@ -76,4 +85,3 @@ Build the package:
 ```bash
 pnpm build
 ```
-

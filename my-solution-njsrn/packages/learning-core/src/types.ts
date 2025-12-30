@@ -30,3 +30,4 @@ export interface DailyActivity {
   practiceTime: number;
 }
 
+
