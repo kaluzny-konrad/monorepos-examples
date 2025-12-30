@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import TrpcClientProvider from "../components/providers/TrpcClientProvider";
+import TrpcProvider from "@repo/trpc/TrpcProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <TrpcClientProvider>{children}</TrpcClientProvider>
+        <TrpcProvider url={process.env.NEXT_PUBLIC_TRPC_URL!}>{children}</TrpcProvider>
       </body>
     </html>
   );

@@ -1,8 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import type { Word } from '@repo/learning-core';
 import { getWordsNeedingPractice } from '@repo/learning-core';
-import type { CreateWordDto } from './dto/create-word.dto';
-import type { UpdateWordDto } from './dto/update-word.dto';
+import type { CreateWordInput } from './vocabulary.schema';
 import type { VocabularyRepository } from './repositories/vocabulary.repository';
 
 @Injectable()
@@ -12,7 +11,7 @@ export class VocabularyService {
     private readonly repository: VocabularyRepository
   ) {}
 
-  async createWord(dto: CreateWordDto): Promise<Word> {
+  async createWord(dto: CreateWordInput): Promise<Word> {
     return this.repository.create({
       word: dto.word,
       definition: dto.definition,
@@ -29,7 +28,7 @@ export class VocabularyService {
     return this.repository.findAll();
   }
 
-  async updateWord(id: string, dto: UpdateWordDto): Promise<Word> {
+  async updateWord(id: string, dto: Partial<CreateWordInput>): Promise<Word> {
     const existing = await this.repository.findById(id);
     if (!existing) {
       throw new NotFoundException(`Word with id ${id} not found`);
