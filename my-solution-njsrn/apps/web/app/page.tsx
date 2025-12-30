@@ -90,8 +90,11 @@ export default function HomePage(): ReactElement {
   );
 
   const handleActionClick = (action: string) => {
-    console.log(`Navigate to ${action}`);
-    // Navigation logic will go here
+    if (action === "vocabulary") {
+      window.location.href = "/vocabulary";
+    } else {
+      console.log(`Navigate to ${action}`);
+    }
   };
 
   return (

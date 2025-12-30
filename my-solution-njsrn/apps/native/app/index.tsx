@@ -1,6 +1,7 @@
 import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useMemo } from "react";
+import { router } from "expo-router";
 import { calculateStats, type Lesson, type Word, type DailyActivity } from "@repo/learning-core";
 
 interface StatCardProps {
@@ -91,8 +92,11 @@ export default function Index() {
   );
 
   const handleActionPress = (action: string) => {
-    console.log(`Navigate to ${action}`);
-    // Navigation logic will go here
+    if (action === "vocabulary") {
+      router.push("/vocabulary");
+    } else {
+      console.log(`Navigate to ${action}`);
+    }
   };
 
   return (
