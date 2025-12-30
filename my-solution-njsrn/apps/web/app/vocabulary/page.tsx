@@ -3,7 +3,6 @@
 import { ReactElement, useState } from "react";
 import { trpc } from "@repo/trpc/client";
 import Link from "next/link";
-import type { Word } from "@repo/learning-core";
 
 export default function VocabularyPage(): ReactElement {
   const [newWord, setNewWord] = useState("");
@@ -112,7 +111,7 @@ export default function VocabularyPage(): ReactElement {
               🔄 Words Needing Practice ({wordsNeedingPractice.length})
             </h2>
             <div className="flex flex-wrap gap-2">
-              {wordsNeedingPractice.slice(0, 10).map((word: Word) => (
+              {wordsNeedingPractice.slice(0, 10).map((word) => (
                 <button
                   key={word.id}
                   onClick={() => recordPracticeMutation.mutate({ id: word.id })}
@@ -140,7 +139,7 @@ export default function VocabularyPage(): ReactElement {
           
           {words && words.length > 0 ? (
             <div className="divide-y divide-gray-100">
-              {words.map((word: Word) => (
+              {words.map((word) => (
                 <div
                   key={word.id}
                   className="px-6 py-4 flex items-center justify-between hover:bg-gray-50"
