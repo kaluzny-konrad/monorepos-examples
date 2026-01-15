@@ -61,6 +61,7 @@ export default function VocabularyScreen() {
   const deleteWordMutation = trpc.vocabulary.delete.useMutation({
     onSuccess: () => {
       utils.vocabulary.getAll.invalidate();
+      utils.vocabulary.getNeedingPractice.invalidate();
     },
   });
 
@@ -213,10 +214,15 @@ export default function VocabularyScreen() {
               <View>
                 {words.map((word, index: number) => (
                   <View key={word.id}>
-                    <View className="px-6 py-4 flex-row items-center justify-between">
-                      <View className="flex-1">
-                        <View className="flex-row items-center gap-2 mb-1">
-                          <Text variant="titleMedium" className="text-gray-900" style={{ fontWeight: "600" }}>
+                    <View className="px-6 py-4">
+                      {/* Word Info Section */}
+                      <View className="flex-1 mb-3">
+                        <View className="flex-row items-center gap-2 mb-2 flex-wrap">
+                          <Text 
+                            variant="titleMedium" 
+                            className="text-gray-900" 
+                            style={{ fontWeight: "600", flexShrink: 0 }}
+                          >
                             {word.word}
                           </Text>
                           {word.learned && (
@@ -234,23 +240,28 @@ export default function VocabularyScreen() {
                             </View>
                           )}
                         </View>
-                        <Text variant="bodyMedium" className="text-gray-600 mt-1">
+                        <Text 
+                          variant="bodyMedium" 
+                          className="text-gray-600 mt-1"
+                          style={{ flexWrap: "wrap" }}
+                        >
                           {word.definition}
                         </Text>
                         <Text variant="bodySmall" className="text-gray-400 mt-1">
                           Practiced {word.timesPracticed} times
                         </Text>
                       </View>
-                      <View className="flex-row gap-2 ml-4">
+                      {/* Action Buttons Section */}
+                      <View className="flex-row gap-2 flex-wrap">
                         {!word.learned && (
                           <Button
                             mode="contained"
                             onPress={() => markLearnedMutation.mutate({ id: word.id })}
                             buttonColor="#dcfce7"
                             textColor="#166534"
-                            style={{ borderRadius: 8 }}
+                            style={{ borderRadius: 8, flexShrink: 0 }}
                             contentStyle={{ paddingHorizontal: 12, paddingVertical: 4 }}
-                            labelStyle={{ fontSize: 14 }}
+                            labelStyle={{ fontSize: 12 }}
                           >
                             Mark Learned
                           </Button>
@@ -260,9 +271,9 @@ export default function VocabularyScreen() {
                           onPress={() => recordPracticeMutation.mutate({ id: word.id })}
                           buttonColor="#dbeafe"
                           textColor="#1e40af"
-                          style={{ borderRadius: 8 }}
+                          style={{ borderRadius: 8, flexShrink: 0 }}
                           contentStyle={{ paddingHorizontal: 12, paddingVertical: 4 }}
-                          labelStyle={{ fontSize: 14 }}
+                          labelStyle={{ fontSize: 12 }}
                         >
                           Practice
                         </Button>
@@ -271,9 +282,9 @@ export default function VocabularyScreen() {
                           onPress={() => deleteWordMutation.mutate({ id: word.id })}
                           buttonColor="#fee2e2"
                           textColor="#991b1b"
-                          style={{ borderRadius: 8 }}
+                          style={{ borderRadius: 8, flexShrink: 0 }}
                           contentStyle={{ paddingHorizontal: 12, paddingVertical: 4 }}
-                          labelStyle={{ fontSize: 14 }}
+                          labelStyle={{ fontSize: 12 }}
                         >
                           Delete
                         </Button>

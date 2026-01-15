@@ -58,6 +58,7 @@ export default function VocabularyPage(): ReactElement {
   const deleteWordMutation = trpc.vocabulary.delete.useMutation({
     onSuccess: () => {
       utils.vocabulary.getAll.invalidate();
+      utils.vocabulary.getNeedingPractice.invalidate();
     },
   });
 
@@ -106,7 +107,7 @@ export default function VocabularyPage(): ReactElement {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="flex flex-col md:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-4"
             >
               <Input
                 type="text"
@@ -165,33 +166,33 @@ export default function VocabularyPage(): ReactElement {
               {words.map((word) => (
                 <div
                   key={word.id}
-                  className="px-6 py-4 flex items-center justify-between hover:bg-gray-50"
+                  className="px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 hover:bg-gray-50"
                 >
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-semibold text-gray-900">
                         {word.word}
                       </span>
                       {word.learned && (
-                        <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">
+                        <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full whitespace-nowrap">
                           Learned
                         </span>
                       )}
                     </div>
-                    <p className="text-gray-600 text-sm mt-1">
+                    <p className="text-gray-600 text-sm mt-1 wrap-break-word">
                       {word.definition}
                     </p>
                     <p className="text-gray-400 text-xs mt-1">
                       Practiced {word.timesPracticed} times
                     </p>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
                     {!word.learned && (
                       <Button
                         onClick={() =>
                           markLearnedMutation.mutate({ id: word.id })
                         }
-                        className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
+                        className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors whitespace-nowrap shrink-0"
                       >
                         Mark Learned
                       </Button>
@@ -200,13 +201,13 @@ export default function VocabularyPage(): ReactElement {
                       onClick={() =>
                         recordPracticeMutation.mutate({ id: word.id })
                       }
-                      className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors"
+                      className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors whitespace-nowrap shrink-0"
                     >
                       Practice
                     </Button>
                     <Button
                       onClick={() => deleteWordMutation.mutate({ id: word.id })}
-                      className="px-3 py-1 text-sm bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
+                      className="px-3 py-1 text-sm bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors whitespace-nowrap shrink-0"
                     >
                       Delete
                     </Button>
