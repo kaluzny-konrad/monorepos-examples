@@ -9,7 +9,18 @@ interface TrpcProviderProps extends PropsWithChildren {
 }
 
 export default function TrpcProvider({ children, url }: TrpcProviderProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: true, // Auto-refresh when user switches back to tab
+            refetchOnReconnect: true, // Refresh when network reconnects
+            staleTime: 30 * 1000, // Consider data stale after 30 seconds
+          },
+        },
+      })
+  );
   const [trpcClient] = useState(() => createTrpcClient(url));
 
   return (

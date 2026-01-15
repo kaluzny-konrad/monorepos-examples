@@ -3,6 +3,7 @@ import {
   View,
   ScrollView,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
@@ -18,12 +19,22 @@ import {
 export default function VocabularyScreen() {
   const [newWord, setNewWord] = useState("");
   const [newDefinition, setNewDefinition] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
 
   const utils = trpc.useUtils();
 
-  const { data: words, isLoading, error } = trpc.vocabulary.getAll.useQuery();
-  const { data: wordsNeedingPractice } =
+  const { data: words, isLoading, error, refetch: refetchAll } = trpc.vocabulary.getAll.useQuery();
+  const { data: wordsNeedingPractice, refetch: refetchPractice } =
     trpc.vocabulary.getNeedingPractice.useQuery({});
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await Promise.all([refetchAll(), refetchPractice()]);
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   const createWordMutation = trpc.vocabulary.create.useMutation({
     onSuccess: () => {
@@ -82,7 +93,17 @@ export default function VocabularyScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-gray-50" edges={["top"]}>
-        <ScrollView className="flex-1">
+        <ScrollView 
+          className="flex-1"
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              tintColor="#2563eb"
+              colors={["#2563eb"]}
+            />
+          }
+        >
           {/* Header */}
           <View className="px-6 pt-8 pb-8 mb-8">
             <Text variant="headlineMedium" className="text-gray-900 mb-2" style={{ fontWeight: "bold" }}>
