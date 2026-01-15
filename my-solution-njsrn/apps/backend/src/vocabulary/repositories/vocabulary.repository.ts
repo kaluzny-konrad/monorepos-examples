@@ -7,4 +7,3 @@ export interface VocabularyRepository {
   update(id: string, data: Partial<Omit<Word, 'id'>>): Promise<Word>;
   delete(id: string): Promise<void>;
 }
-

@@ -6,25 +6,25 @@ import type { VocabularyRepository } from './vocabulary.repository';
 export class InMemoryVocabularyRepository implements VocabularyRepository {
   private words: Map<string, Word> = new Map();
 
-  async create(word: Omit<Word, 'id'>): Promise<Word> {
+  create(word: Omit<Word, 'id'>): Promise<Word> {
     const id = crypto.randomUUID();
     const newWord: Word = {
       ...word,
       id,
     };
     this.words.set(id, newWord);
-    return newWord;
+    return Promise.resolve(newWord);
   }
 
-  async findById(id: string): Promise<Word | null> {
-    return this.words.get(id) || null;
+  findById(id: string): Promise<Word | null> {
+    return Promise.resolve(this.words.get(id) || null);
   }
 
-  async findAll(): Promise<Word[]> {
-    return Array.from(this.words.values());
+  findAll(): Promise<Word[]> {
+    return Promise.resolve(Array.from(this.words.values()));
   }
 
-  async update(id: string, data: Partial<Omit<Word, 'id'>>): Promise<Word> {
+  update(id: string, data: Partial<Omit<Word, 'id'>>): Promise<Word> {
     const existing = this.words.get(id);
     if (!existing) {
       throw new Error(`Word with id ${id} not found`);
@@ -34,14 +34,14 @@ export class InMemoryVocabularyRepository implements VocabularyRepository {
       ...data,
     };
     this.words.set(id, updated);
-    return updated;
+    return Promise.resolve(updated);
   }
 
-  async delete(id: string): Promise<void> {
+  delete(id: string): Promise<void> {
     if (!this.words.has(id)) {
       throw new Error(`Word with id ${id} not found`);
     }
     this.words.delete(id);
+    return Promise.resolve();
   }
 }
-

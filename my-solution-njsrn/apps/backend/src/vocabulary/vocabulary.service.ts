@@ -8,7 +8,7 @@ import type { VocabularyRepository } from './repositories/vocabulary.repository'
 export class VocabularyService {
   constructor(
     @Inject('VocabularyRepository')
-    private readonly repository: VocabularyRepository
+    private readonly repository: VocabularyRepository,
   ) {}
 
   async createWord(dto: CreateWordInput): Promise<Word> {
@@ -71,4 +71,3 @@ export class VocabularyService {
     return getWordsNeedingPractice(allWords, days);
   }
 }
-

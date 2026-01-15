@@ -17,4 +17,3 @@ export const createWordSchema = z.object({
 
 export type CreateWordInput = z.infer<typeof createWordSchema>;
 export type Word = z.infer<typeof wordSchema>;
-

@@ -15,4 +15,3 @@ import { VocabularyRouter } from './vocabulary.router';
   exports: [VocabularyService],
 })
 export class VocabularyModule {}
-

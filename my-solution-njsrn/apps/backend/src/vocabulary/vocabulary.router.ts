@@ -57,7 +57,9 @@ export class VocabularyRouter {
     output: z.object({ success: z.boolean() }),
   })
   delete(@Input('id') id: string) {
-    return this.vocabularyService.deleteWord(id).then(() => ({ success: true }));
+    return this.vocabularyService
+      .deleteWord(id)
+      .then(() => ({ success: true }));
   }
 
   @Mutation({
