@@ -14,6 +14,16 @@ export default function RootLayout() {
         <SafeAreaView style={{ flex: 1 }}>
           <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen 
+              name="vocabulary" 
+              options={{ 
+                title: "Vocabulary",
+                headerBackTitle: "Home",
+                headerStyle: { backgroundColor: "#f9fafb" },
+                headerTintColor: "#2563eb",
+                headerTitleStyle: { fontWeight: "bold" },
+              }} 
+            />
             <Stack.Screen name="+not-found" />
           </Stack>
         </SafeAreaView>

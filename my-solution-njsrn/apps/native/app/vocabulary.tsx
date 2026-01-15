@@ -85,15 +85,6 @@ export default function VocabularyScreen() {
         <ScrollView className="flex-1">
           {/* Header */}
           <View className="px-6 pt-8 pb-8 mb-8">
-            <Button
-              mode="text"
-              onPress={() => router.back()}
-              textColor="#2563eb"
-              style={{ alignSelf: "flex-start", marginBottom: 16 }}
-              contentStyle={{ paddingHorizontal: 0 }}
-            >
-              ← Back to Home
-            </Button>
             <Text variant="headlineMedium" className="text-gray-900 mb-2" style={{ fontWeight: "bold" }}>
               📚 Vocabulary
             </Text>
@@ -103,7 +94,7 @@ export default function VocabularyScreen() {
           </View>
 
           {/* Add New Word Form */}
-          <Card className="mx-6 mb-8" mode="elevated" style={{ borderRadius: 12, backgroundColor: "white", elevation: 1 }}>
+          <Card mode="elevated" style={{ borderRadius: 12, backgroundColor: "white", elevation: 1, marginHorizontal: 24, marginBottom: 32 }}>
             <Card.Content style={{ padding: 24 }}>
               <Text variant="titleLarge" className="text-gray-900 mb-4" style={{ fontWeight: "600" }}>
                 Add New Word
@@ -149,12 +140,14 @@ export default function VocabularyScreen() {
         {/* Words Needing Practice */}
         {wordsNeedingPractice && wordsNeedingPractice.length > 0 && (
           <View
-            className="mx-6 mb-8 rounded-xl p-6"
+            className="rounded-xl p-6"
             style={{
               backgroundColor: "#fff7ed",
               borderWidth: 1,
               borderColor: "#fed7aa",
               borderRadius: 12,
+              marginHorizontal: 24,
+              marginBottom: 32,
             }}
           >
             <Text variant="titleLarge" className="text-orange-800 mb-4" style={{ fontWeight: "600" }}>
@@ -187,7 +180,7 @@ export default function VocabularyScreen() {
         )}
 
         {/* Word List */}
-        <Card className="mx-6 mb-8" mode="elevated" style={{ borderRadius: 12, backgroundColor: "white", elevation: 1 }}>
+        <Card mode="elevated" style={{ borderRadius: 12, backgroundColor: "white", elevation: 1, marginHorizontal: 24, marginBottom: 32 }}>
           <Card.Content style={{ padding: 0 }}>
             <View className="px-6 py-4 border-b border-gray-100">
               <Text variant="titleLarge" className="text-gray-900" style={{ fontWeight: "600" }}>
