@@ -11,13 +11,21 @@
     "lint": "npx expo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "type-check": "tsc --noEmit",
-    "dev": "npx expo start"
+    "dev": "npx expo start",
+    "dev:android": "emulator -avd Medium_Phone_API_36.0",
+    "dev:ios": "xcrun simctl boot 'iPhone 16' || open -a Simulator && expo start --ios"
   },
   "dependencies": {
-    "@repo/learning-core": "workspace:*",
     "@expo/vector-icons": "^15.0.3",
+    "@gorhom/bottom-sheet": "^5.2.8",
     "@react-navigation/bottom-tabs": "^7.9.0",
     "@react-navigation/native": "^7.1.26",
+    "@repo/learning-core": "workspace:*",
+    "@repo/trpc": "workspace:*",
+    "@tanstack/react-query": "^5.80.7",
+    "@trpc/client": "^11.8.0",
+    "@trpc/react-query": "^11.8.0",
+    "@trpc/server": "^11.8.0",
     "autoprefixer": "^10.4.23",
     "expo": "~54.0.30",
     "expo-constants": "~18.0.12",
@@ -37,22 +45,25 @@
     "react-native": "0.81.5",
     "react-native-css-interop": "^0.2.1",
     "react-native-gesture-handler": "~2.28.0",
-    "react-native-reanimated": "~4.1.1",
-    "react-native-safe-area-context": "~5.6.0",
+    "react-native-paper": "^5.14.5",
+    "react-native-reanimated": "~4.1.6",
+    "react-native-safe-area-context": "~5.6.2",
     "react-native-screens": "~4.16.0",
-    "react-native-web": "~0.21.2"
+    "react-native-web": "~0.21.2",
+    "zod": "^4.2.1"
   },
   "devDependencies": {
-    "postcss": "^8.5.6",
     "@repo/config-tailwind": "workspace:*",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/react": "^19.2.7",
     "eslint": "^9.39.2",
     "eslint-config-expo": "~10.0.0",
-    "typescript": "5.9.3",
+    "postcss": "^8.5.6",
+    "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "0.5.11",
-    "tailwindcss": "3.4.17"
+    "tailwindcss": "3.4.17",
+    "typescript": "5.9.3"
   },
   "private": true
 }

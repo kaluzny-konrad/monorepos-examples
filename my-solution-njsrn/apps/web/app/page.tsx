@@ -45,53 +45,23 @@ function ActionCard({ title, description, icon, onClick, color }: ActionCardProp
 }
 
 export default function HomePage(): ReactElement {
-  // Mock data - in a real app, this would come from state management or API
-  const mockLessons: Lesson[] = [
-    { id: "1", title: "Basic Greetings", completed: true, score: 85 },
-    { id: "2", title: "Present Tense", completed: true, score: 90 },
-    { id: "3", title: "Past Tense", completed: true, score: 75 },
-    { id: "4", title: "Future Tense", completed: false },
-    { id: "5", title: "Conditionals", completed: true, score: 88 },
-    { id: "6", title: "Passive Voice", completed: false },
-  ];
-
-  const mockWords: Word[] = Array.from({ length: 342 }, (_, i) => ({
-    id: `word-${i + 1}`,
-    word: `word${i + 1}`,
-    definition: `Definition ${i + 1}`,
-    learned: true,
-    learnedAt: new Date(),
-    timesPracticed: Math.floor(Math.random() * 10),
-    lastPracticedAt: new Date(),
-  }));
-
-  // Generate daily activities for the last 7 days
-  const mockActivities: DailyActivity[] = useMemo(() => {
-    const activities: DailyActivity[] = [];
-    const today = new Date();
-    for (let i = 0; i < 7; i++) {
-      const date = new Date(today);
-      date.setDate(date.getDate() - i);
-      const dateStr = date.toISOString().split("T")[0] as string;
-      activities.push({
-        date: dateStr,
-        lessonsCompleted: i === 0 ? 1 : Math.floor(Math.random() * 3),
-        wordsLearned: Math.floor(Math.random() * 10) + 5,
-        practiceTime: Math.floor(Math.random() * 30) + 15,
-      });
-    }
-    return activities;
-  }, []);
+  // Empty data - will be populated from API/state management in the future
+  const lessons = useMemo<Lesson[]>(() => [], []);
+  const words = useMemo<Word[]>(() => [], []);
+  const activities = useMemo<DailyActivity[]>(() => [], []);
 
   // Calculate stats using shared logic
   const stats = useMemo(
-    () => calculateStats(mockLessons, mockWords, mockActivities),
-    [mockLessons, mockWords, mockActivities]
+    () => calculateStats(lessons, words, activities),
+    [lessons, words, activities]
   );
 
   const handleActionClick = (action: string) => {
-    console.log(`Navigate to ${action}`);
-    // Navigation logic will go here
+    if (action === "vocabulary") {
+      window.location.href = "/vocabulary";
+    } else {
+      console.log(`Navigate to ${action}`);
+    }
   };
 
   return (
